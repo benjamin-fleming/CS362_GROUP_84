@@ -1,8 +1,8 @@
 def my_func():
     return "Hello World"
 
-# Function 1
+# Function 1: Ben
 
-# Function 2
+# Function 2: Ash
 
-# Function 3
+# Function 3: Alex
