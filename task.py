@@ -24,6 +24,35 @@ def conv_hex(hex_str):
     return integer
 
 
+def conv_dec(dec_str):
+    """
+    Convert decimal or integer string to a base 10 integer
+    """
+    # Define integer & decimal place variables
+    integer = 0
+    decimal_place = 0
+
+    # Convert string to integer
+    for char in dec_str:
+        if '0' <= char <= '9':
+            integer = integer * 10 + (ord(char) - ord('0'))
+            # Check for decimal place
+            if decimal_place > 0:
+                decimal_place *= 10
+        elif char == '.':
+            # Check for multiple decimal places
+            if decimal_place > 0:
+                return None
+            decimal_place = 1
+        else:
+            return None
+
+    # Check if decimal, update & return integer accordingly
+    if decimal_place > 0:
+        return integer / decimal_place
+    return integer
+
+
 def conv_num(num_str):
     """
     Convert Int, float, or hexadecimal entered as a string to a base 10 integer or float.
@@ -39,46 +68,15 @@ def conv_num(num_str):
         # Start from the next character if negative
         num_str = num_str[1:]
 
-    # Define integer variable
-    integer = 0
-
     # Check if number is hexadecimal
     if num_str.lower().startswith('0x'):
         # Call conv_hex helper function
         integer = conv_hex(num_str)
+    else:
+        # Call conv_dex helper function
+        integer = conv_dec(num_str)
 
-        # Return None if conv_hex returned None
-        if integer is None:
-            return None
-
-        # Check if negative & return integer
-        if negative is True:
-            return -integer
-        return integer
-
-    # Define decimal variable
-    decimal_place = 0
-
-    # Convert string to integer
-    for char in num_str:
-        if '0' <= char <= '9':
-            integer = integer * 10 + (ord(char) - ord('0'))
-            # Check for decimal place
-            if decimal_place > 0:
-                decimal_place *= 10
-        elif char == '.':
-            # Check for multiple decimal places
-            if decimal_place > 0:
-                return None
-            decimal_place = 1
-        else:
-            return None
-
-    # Check if decimal & update integer accordingly
-    if decimal_place > 0:
-        integer = integer / decimal_place
-
-    # Check if negative & return integer
+    # Check if negative & return integer value
     if negative is True:
         return -integer
     return integer
