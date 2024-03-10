@@ -4,7 +4,11 @@ def my_func():
 
 # Function 1:   Ben
 def conv_num(num_str):
-    # ADD MORE CODE!
+    # Verify string is valid & not empty
+    if isinstance(num_str, str) is False or len(num_str) == 0:
+        return None
+
+    # Return value
     return num_str
 
 
