@@ -4,12 +4,67 @@ def my_func():
 
 # Function 1:   Ben
 def conv_num(num_str):
+    """
+    :param num_str: Int, float, or hexadecimal entered as a string.
+    :return:        String value converted to a base 10 integer or float.
+    """
     # Verify string is valid & not empty
     if isinstance(num_str, str) is False or len(num_str) == 0:
         return None
 
-    # Return value
-    return num_str
+    # Check if number is negative
+    negative = False
+    if num_str[0] == '-':
+        negative = True
+        # Start from the next character if negative
+        num_str = num_str[1:]
+
+    # Define integer variable
+    integer = 0
+
+    # Check if number is hexadecimal
+    if num_str.lower().startswith('0x'):
+        # Remove 0x
+        num_str = num_str[2:]
+        # Convert hexadecimal to integer
+        for char in num_str:
+            if '0' <= char <= '9':
+                integer = integer * 16 + (ord(char) - ord('0'))
+            elif 'a' <= char.lower() <= 'f':
+                integer = integer * 16 + (ord(char.lower()) - ord('a') + 10)
+            else:
+                return None
+        # Check if negative & return integer
+        if negative is True:
+            return -integer
+        return integer
+
+    # Define decimal variable
+    decimal_place = 0
+
+    # Convert string to integer
+    for char in num_str:
+        if '0' <= char <= '9':
+            integer = integer * 10 + (ord(char) - ord('0'))
+            # Check for decimal place
+            if decimal_place > 0:
+                decimal_place *= 10
+        elif char == '.':
+            # Check for multiple decimal places
+            if decimal_place > 0:
+                return None
+            decimal_place = 1
+        else:
+            return None
+
+    # Check if decimal & update integer accordingly
+    if decimal_place > 0:
+        integer = integer / decimal_place
+
+    # Check if negative & return integer
+    if negative is True:
+        return -integer
+    return integer
 
 
 # Function 2:   Ash

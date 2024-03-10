@@ -7,8 +7,32 @@ class TestCase(unittest.TestCase):
     def test1(self):
         self.assertTrue(True)
 
-    def test_conv_num_1(self):
+    def test_conv_num_0(self):
         self.assertIsNone(conv_num(123))
+
+    def test_conv_num_1(self):
+        self.assertIsNone(conv_num("0x1A.1A"))
+
+    def test_conv_num_2(self):
+        self.assertIsNone(conv_num("ABC"))
+
+    def test_conv_num_3(self):
+        self.assertIsNone(conv_num("1.2.3"))
+
+    def test_conv_num_4(self):
+        self.assertEqual(conv_num("123"), 123)
+
+    def test_conv_num_5(self):
+        self.assertEqual(conv_num("-123"), -123)
+
+    def test_conv_num_6(self):
+        self.assertEqual(conv_num("12.65"), 12.65)
+
+    def test_conv_num_7(self):
+        self.assertEqual(conv_num("0X1A"), 26)
+
+    def test_conv_num_8(self):
+        self.assertEqual(conv_num("-0x1A"), -26)
 
     def test_my_datetime_0(self):
         self.assertEqual(my_datetime(0), '01-01-1970')
