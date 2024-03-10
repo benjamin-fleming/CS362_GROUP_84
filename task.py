@@ -3,10 +3,30 @@ def my_func():
 
 
 # Function 1:   Ben
+def conv_hex(hex_str):
+    """
+    Convert hexadecimal string to a base 10 integer
+    """
+    # Remove 0x from hex string
+    num_str = hex_str[2:]
+
+    # Define integer
+    integer = 0
+
+    # Convert hexadecimal to integer & return int
+    for char in num_str:
+        if '0' <= char <= '9':
+            integer = integer * 16 + (ord(char) - ord('0'))
+        elif 'a' <= char.lower() <= 'f':
+            integer = integer * 16 + (ord(char.lower()) - ord('a') + 10)
+        else:
+            return None
+    return integer
+
+
 def conv_num(num_str):
     """
-    :param num_str: Int, float, or hexadecimal entered as a string.
-    :return:        String value converted to a base 10 integer or float.
+    Convert Int, float, or hexadecimal entered as a string to a base 10 integer or float.
     """
     # Verify string is valid & not empty
     if isinstance(num_str, str) is False or len(num_str) == 0:
@@ -24,16 +44,13 @@ def conv_num(num_str):
 
     # Check if number is hexadecimal
     if num_str.lower().startswith('0x'):
-        # Remove 0x
-        num_str = num_str[2:]
-        # Convert hexadecimal to integer
-        for char in num_str:
-            if '0' <= char <= '9':
-                integer = integer * 16 + (ord(char) - ord('0'))
-            elif 'a' <= char.lower() <= 'f':
-                integer = integer * 16 + (ord(char.lower()) - ord('a') + 10)
-            else:
-                return None
+        # Call conv_hex helper function
+        integer = conv_hex(num_str)
+
+        # Return None if conv_hex returned None
+        if integer is None:
+            return None
+
         # Check if negative & return integer
         if negative is True:
             return -integer
