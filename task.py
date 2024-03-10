@@ -12,3 +12,6 @@ def conv_num(num_str):
 
 
 # Function 3:    Alex
+def conv_endian(num, endian='big'):
+    # TODO: implement function
+    return ''
