@@ -36,25 +36,27 @@ def my_datetime(num_sec):
 
     # Account for leap years
     leap_years_since_1970 = ((year // 4) + (year // 400) - (year // 100)) - 477
-    # Remove a leap year from the count if num_sec is before leap day of a leap year
-    if is_leap_year(year) and num_sec < (31 * 29) * day_in_seconds:
+
+    if is_leap_year(year):
         leap_years_since_1970 -= 1
 
-    # Remove a day from num_sec for each leap year since 1970
-    num_sec -= leap_years_since_1970 * day_in_seconds
-    # Add time back to num_sec if it's negative and adjust the year
-    while num_sec < 0:
+    leap_year_adjustment = divmod(leap_years_since_1970, 365)
+    year -= leap_year_adjustment[0]
+    num_sec += (leap_year_adjustment[0] // 4) * day_in_seconds
+    num_sec -= leap_year_adjustment[1] * day_in_seconds
+    if num_sec < 0:
         num_sec += year_in_seconds
         year -= 1
+        if is_leap_year(year):
+            num_sec += day_in_seconds
 
     # February has 29 days if year is a leap year
     if is_leap_year(year):
         days_each_month[1] = 29
-        num_sec += day_in_seconds
 
     # Calculate month
     month = 0
-    seconds_each_month = [(m * 24 * 60 * 60) for m in days_each_month]
+    seconds_each_month = [(m * day_in_seconds) for m in days_each_month]
     while num_sec > seconds_each_month[month] and month < 11:
         num_sec -= seconds_each_month[month]
         month += 1
