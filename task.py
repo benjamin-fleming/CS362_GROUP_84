@@ -3,13 +3,83 @@ def my_func():
 
 
 # Function 1:   Ben
+def conv_hex(hex_str):
+    """
+    Convert hexadecimal string to a base 10 integer
+    """
+    # Remove 0x from hex string
+    num_str = hex_str[2:]
+
+    # Define integer
+    integer = 0
+
+    # Convert hexadecimal to integer & return int
+    for char in num_str:
+        if '0' <= char <= '9':
+            integer = integer * 16 + (ord(char) - ord('0'))
+        elif 'a' <= char.lower() <= 'f':
+            integer = integer * 16 + (ord(char.lower()) - ord('a') + 10)
+        else:
+            return None
+    return integer
+
+
+def conv_dec(dec_str):
+    """
+    Convert decimal or integer string to a base 10 integer
+    """
+    # Define integer & decimal place variables
+    integer = 0
+    decimal_place = 0
+
+    # Convert string to integer
+    for char in dec_str:
+        if '0' <= char <= '9':
+            integer = integer * 10 + (ord(char) - ord('0'))
+            # Check for decimal place
+            if decimal_place > 0:
+                decimal_place *= 10
+        elif char == '.':
+            # Check for multiple decimal places
+            if decimal_place > 0:
+                return None
+            decimal_place = 1
+        else:
+            return None
+
+    # Check if decimal, update & return integer accordingly
+    if decimal_place > 0:
+        return integer / decimal_place
+    return integer
+
+
 def conv_num(num_str):
+    """
+    Convert Int, float, or hexadecimal entered as a string to a base 10 integer or float.
+    """
     # Verify string is valid & not empty
     if isinstance(num_str, str) is False or len(num_str) == 0:
         return None
 
-    # Return value
-    return num_str
+    # Check if number is negative
+    negative = False
+    if num_str[0] == '-':
+        negative = True
+        # Start from the next character if negative
+        num_str = num_str[1:]
+
+    # Check if number is hexadecimal
+    if num_str.lower().startswith('0x'):
+        # Call conv_hex helper function
+        integer = conv_hex(num_str)
+    else:
+        # Call conv_dex helper function
+        integer = conv_dec(num_str)
+
+    # Check if negative & return integer value
+    if negative is True:
+        return -integer
+    return integer
 
 
 # Function 2:   Ash
