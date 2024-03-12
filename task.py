@@ -23,14 +23,14 @@ def conv_endian(num, endian='big'):
     """
     negative = False
     # check for negative and store result
-    if(num < 0):
+    if (num < 0):
         num *= -1
         negative = True
     # check if num is 0, otherwise will cause math error
     elif (num == 0):
         return '00'
     # list of hexadecimal digits for indexing
-    digits = ['0', '1', '2',' 3', '4', '5', '6', '7', '8', '9', 
+    digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
               'A', 'B', 'C', 'D', 'E', 'F']
     # list that will hold strings for each hex byte
     hex_digits = []
@@ -54,20 +54,20 @@ def hex_to_bytes(hex_digits, endian, negative):
     each two characters long and space separated.
     """
     # add 0 digit at beginning if number of digits is uneven
-    if(len(hex_digits) % 2 != 0):
+    if (len(hex_digits) % 2 != 0):
         hex_digits.insert(0, '0')
     # hex_str which will contain the final returned string
     hex_str = '-' if negative else ''
-    if(endian == 'big'):
+    if (endian == 'big'):
         # add bytes in order
         for i in range(len(hex_digits)):
             hex_str += hex_digits[i]
-            if(i % 2 != 0):
+            if (i % 2 != 0):
                 hex_str += ' '
-    elif(endian == 'little'):
+    elif (endian == 'little'):
         # add bytes in reverse order
         for i in range(len(hex_digits) - 1, -1, -1):
-            if(i % 2 != 0):
+            if (i % 2 != 0):
                 hex_str += hex_digits[i - 1]
             else:
                 hex_str += hex_digits[i + 1] + ' '

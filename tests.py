@@ -1,6 +1,7 @@
 import unittest
 from task import conv_endian
 
+
 class TestCase(unittest.TestCase):
 
     def test1(self):
@@ -20,7 +21,7 @@ class TestCase(unittest.TestCase):
 
     def conv_endian_test5(self):
         self.assertEqual(conv_endian(-954786, 'little'), '-A2 91 0E')
-    
+
     def conv_endian_test6(self):
         self.assertEqual(conv_endian(0, 'big'), '00')
 
@@ -38,6 +39,7 @@ class TestCase(unittest.TestCase):
 
     def conv_endian_test11(self):
         self.assertIsNone(conv_endian(1, 'foo'))
+
 
 if __name__ == '__main__':
     unittest.main()
