@@ -1,5 +1,6 @@
 import math
 
+
 def my_func():
     return "Hello World"
 
@@ -29,7 +30,8 @@ def conv_endian(num, endian='big'):
     elif (num == 0):
         return '00'
     # list of hexadecimal digits for indexing
-    digits = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
+    digits = ['0', '1', '2',' 3', '4', '5', '6', '7', '8', '9', 
+              'A', 'B', 'C', 'D', 'E', 'F']
     # list that will hold strings for each hex byte
     hex_digits = []
     # number of hex digits
@@ -42,7 +44,15 @@ def conv_endian(num, endian='big'):
         hex_digits += str(digits[digit_val])
         # subtract value added to hex number from decimal number
         num -= digit_val*(16**i)
-    # compile list of digits into a string of bytes
+    # converts the list of hex digits to a string of bytes and returns it
+    return hex_to_bytes(hex_digits, endian, negative)
+
+
+def hex_to_bytes(hex_digits, endian, negative):
+    """
+    Compile list of hex digits into a string of bytes,
+    each two characters long and space separated.
+    """
     # add 0 digit at beginning if number of digits is uneven
     if(len(hex_digits) % 2 != 0):
         hex_digits.insert(0, '0')
