@@ -56,7 +56,7 @@ class TestCase(unittest.TestCase):
     def test_my_datetime_201653971200(self):
         self.assertEqual(my_datetime(201653971200), '02-29-8360')
         
-     def conv_endian_test1(self):
+    def conv_endian_test1(self):
         self.assertEqual(conv_endian(954786), '0E 91 A2')
 
     def conv_endian_test2(self):
